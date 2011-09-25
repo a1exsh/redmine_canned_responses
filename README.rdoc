@@ -1,0 +1,3 @@
+= canned_responses
+
+Store and use prepared (canned) responses, per-project or globally.

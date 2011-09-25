@@ -1,0 +1,28 @@
+<% labelled_tabular_form_for :canned_response, @canned_response,
+   :url => { :action => @canned_response.new_record? ? 'create' : 'update' },
+   :html => { :id => 'wiki_form',
+     :method => @canned_response.new_record? ? 'post' : 'put' } do |f| %>
+<%= error_messages_for 'canned_response' %>
+<div class="box">
+  <%= hidden_field_tag :project_id, @canned_response.project_id %>
+  <p><%= f.text_field :title, :size => 60 %></p>
+  <p><%= f.text_area :text, :cols => 60, :rows => 15,
+         :class => 'wiki-edit', :accesskey => accesskey(:edit) %></p>
+</div>
+<p><%= submit_tag l(:button_save) %>
+  <%= link_to_remote l(:label_preview), 
+      { :url => { :action => 'preview' },
+        :method => :post,
+        :update => 'preview',
+        :with => "Form.serialize('wiki_form')",
+        :complete => "Element.scrollTo('preview')"
+      }, :accesskey => accesskey(:preview) %></p>
+<%= wikitoolbar_for 'canned_response_text' %>
+<% end %>
+
+<div id="preview" class="wiki"></div>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'scm' %>
+  <%= robot_exclusion_tag %>
+<% end %>

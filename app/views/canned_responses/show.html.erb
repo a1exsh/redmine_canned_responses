@@ -1,0 +1,7 @@
+<div class="canned-response">
+  <h2><%=h @canned_response.title %></h2>
+  <%= textilizable @canned_response, :text %>
+</div>
+<p><%= manage_canned_response_links @canned_response %></p>
+
+<%= render "sidebar" %>

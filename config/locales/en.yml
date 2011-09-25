@@ -1,0 +1,10 @@
+# English strings go here for Rails i18n
+en:
+  label_canned_response: Canned response
+  label_canned_response_plural: Canned responses
+  label_global_canned_responses: Globally defined canned responses
+  label_canned_response_view_all: View all canned responses
+  label_new_canned_response: New canned response
+  label_edit_canned_response: Edit canned response
+  notice_canned_response_created: Canned successfully
+  notice_canned_response_updated: Re-canned successfully
