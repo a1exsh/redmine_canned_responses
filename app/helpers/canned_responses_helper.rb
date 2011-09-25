@@ -19,13 +19,13 @@ module CannedResponsesHelper
      delete_canned_response_link(canned_response)].join("\n")
   end
 
-  def url_to_project_settings_tab
+  def url_to_canned_responses_settings_tab
     { :controller => "projects", :action => "settings", :id => @project,
       :tab => "canned_responses" }
   end
 
   def link_to_all_canned_responses
-    url = @project ? url_to_project_settings_tab :
+    url = @project ? url_to_canned_responses_settings_tab :
       { :controller => "canned_responses", :action => "index",
         :project_id => @project }
 
@@ -38,5 +38,15 @@ module CannedResponsesHelper
       { :controller => "canned_responses", :action => "new",
         :project_id => @project },
       :class => "icon icon-add"
+  end
+
+  def canned_response_options_for_select(project = @project)
+    [project ? canned_responses_options(project.canned_responses) : "",
+     canned_responses_options(CannedResponse.global)].reject(&:blank?)\
+      .join("<option disabled>---</option>")
+  end
+
+  def canned_responses_options(canned_responses)
+    options_for_select(canned_responses.map { |cr| [cr.title, cr.id] })
   end
 end

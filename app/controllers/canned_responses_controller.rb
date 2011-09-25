@@ -1,7 +1,9 @@
 class CannedResponsesController < ApplicationController
   unloadable
 
-  before_filter :find_project, :authorize
+  before_filter :find_project
+  before_filter :authorize, :except => :insert
+  before_filter :authorize_unless_global, :only => :insert
 
   layout :select_layout
 
@@ -40,12 +42,20 @@ class CannedResponsesController < ApplicationController
   def destroy
     @canned_response.destroy
     flash[:notice] = l(:notice_canned_response_deleted)
-    redirect_to(@project ? url_to_project_settings_tab : { :action => :index })
+    redirect_to(@project ? url_to_canned_responses_settings_tab :
+                { :action => :index })
   end
 
   def preview
     @text = params[:canned_response][:text]
     render :partial => 'common/preview'
+  end
+
+  def insert
+    render(:update) do |page|
+      page << "$('notes').value += \"#{escape_javascript @canned_response.text}\";"
+      page << "Form.Element.focus('notes');"
+    end
   end
 
   private
@@ -72,5 +82,9 @@ class CannedResponsesController < ApplicationController
     @canned_responses = CannedResponse.global unless @project
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def authorize_unless_global
+    authorize unless @canned_response.global?
   end
 end

@@ -1,0 +1,20 @@
+<% if User.current.allowed_to? :manage_canned_responses, @project %>
+<div class="contextual">
+  <%= link_to l(:label_manage_canned_responses),
+      url_to_canned_responses_settings_tab %>
+</div>
+<% end %>
+
+<% options = canned_response_options_for_select %>
+<% unless options.blank? %>
+  <% if User.current.allowed_to? :use_canned_responses, @project %>
+    <%= label_tag :canned_response, l(:label_insert_canned_response) %>
+    <% js = remote_function(:url => { :controller => 'canned_responses',
+                              :action => 'insert', :id => nil },
+                            :condition => "$('canned_response').value != ''",
+                            :with => "'id=' + $('canned_response').value" ) %>
+    <%= select_tag :canned_response, "<option></option>" + options,
+        :onchange => js %>
+    <hr/>
+  <% end %>
+<% end %>

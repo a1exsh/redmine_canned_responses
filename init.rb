@@ -7,6 +7,7 @@ Dispatcher.to_prepare :redmine_canned_responses do
   require_dependency 'project'
   require_dependency 'projects_helper'
   require_dependency 'projects_controller'
+  require_dependency 'issues_controller'
 
   unless Project.included_modules.include? RedmineCannedResponses::ProjectPatch
     Project.send(:include, RedmineCannedResponses::ProjectPatch)
@@ -18,6 +19,10 @@ Dispatcher.to_prepare :redmine_canned_responses do
 
   unless ProjectsController.included_modules.include? RedmineCannedResponses::ProjectsControllerPatch
     ProjectsController.send(:include, RedmineCannedResponses::ProjectsControllerPatch)
+  end
+
+  unless IssuesController.included_modules.include? RedmineCannedResponses::IssuesControllerPatch
+    IssuesController.send(:include, RedmineCannedResponses::IssuesControllerPatch)
   end
 end
 
@@ -31,8 +36,9 @@ Redmine::Plugin.register :redmine_canned_responses do
 
   project_module :canned_responses do
     permission :manage_canned_responses,
-    :canned_responses => [:index, :show, :preview, :new, :edit,
-                          :create, :update, :destroy]
+      :canned_responses => [:index, :show, :preview, :new, :edit,
+                            :create, :update, :destroy]
+    permission :use_canned_responses, :canned_responses => [:insert]
   end
 
   menu :admin_menu, :canned_responses,
