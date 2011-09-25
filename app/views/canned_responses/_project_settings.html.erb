@@ -3,4 +3,9 @@
       :box => true } %>
 </div>
 
+<p>
 <%= link_to_new_canned_response %>
+<% if User.current.admin? %>
+<%= link_to_all_canned_responses(l(:label_canned_response_view_global), nil) %>
+<% end %>
+</p>

@@ -1,7 +1,9 @@
 <% title = @project ? l(:label_canned_response_plural) : l(:label_global_canned_responses) %>
 <% html_title title %>
 
-<div class="contextual"><%= link_to_new_canned_response %></div>
+<div class="contextual">
+<%= link_to_new_canned_response l(:label_new_global_canned_response) %>
+</div>
 <h2><%=h title %></h2>
 
 <%= render :partial => 'list',

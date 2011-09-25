@@ -1,5 +1,7 @@
-<% html_title l(:label_new_canned_response) %>
+<% title = l(@project ? :label_new_canned_response :
+             :label_new_global_canned_response) %>
+<% html_title title %>
 
-<h2><%=l :label_new_canned_response %></h2>
+<h2><%= title %></h2>
 
 <%= render :partial => 'form' %>

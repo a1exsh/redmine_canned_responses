@@ -24,19 +24,20 @@ module CannedResponsesHelper
       :tab => "canned_responses" }
   end
 
-  def link_to_all_canned_responses
-    url = @project ? url_to_canned_responses_settings_tab :
+  def link_to_all_canned_responses(title = l(:label_canned_response_view_all),
+                                   project = @project)
+    url = project ? url_to_canned_responses_settings_tab :
       { :controller => "canned_responses", :action => "index",
-        :project_id => @project }
+        :project_id => project }
 
-    link_to l(:label_canned_response_view_all), url,
-      :class => "icon icon-multiple"
+    link_to title, url, :class => "icon icon-multiple"
   end
 
-  def link_to_new_canned_response
-    link_to_if_authorized l(:label_new_canned_response),
+  def link_to_new_canned_response(title = l(:label_new_canned_response),
+                                  project = @project)
+    link_to_if_authorized title,
       { :controller => "canned_responses", :action => "new",
-        :project_id => @project },
+        :project_id => project },
       :class => "icon icon-add"
   end
 
