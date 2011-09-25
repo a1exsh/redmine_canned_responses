@@ -8,3 +8,4 @@ en:
   label_edit_canned_response: Edit canned response
   notice_canned_response_created: Canned successfully
   notice_canned_response_updated: Re-canned successfully
+  notice_canned_response_deleted: Can trashed successfully

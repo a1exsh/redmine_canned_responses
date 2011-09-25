@@ -3,6 +3,8 @@ class CannedResponsesController < ApplicationController
 
   before_filter :find_project, :authorize
 
+  layout :select_layout
+
   def index
     @canned_responses = @canned_responses.all(:order => :title)
   end
@@ -38,7 +40,8 @@ class CannedResponsesController < ApplicationController
 
   def destroy
     @canned_response.destroy
-    redirect_to :action => :index
+    flash[:notice] = l(:notice_canned_response_deleted)
+    redirect_to(@project ? url_to_project_settings_tab : { :action => :index })
   end
 
   def preview
@@ -47,6 +50,12 @@ class CannedResponsesController < ApplicationController
   end
 
   private
+
+  include CannedResponsesHelper
+
+  def select_layout
+    @project ? 'base' : 'admin'
+  end
 
   def find_project
     if params[:project_id].present?

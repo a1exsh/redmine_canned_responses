@@ -1,0 +1,16 @@
+<% if canned_responses.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+<% box ||= false %>
+<% if box %><div class="box"><% end %>
+
+<% canned_responses.each do |cr| %>
+  <div class="canned-response">
+    <h3><%= link_to cr.title, cr %></h3>
+    <%= textilizable cr, :text %>
+  </div>
+  <p><%= manage_canned_response_links cr %></p>
+<% end %>
+
+<% if box %></div><% end %>
+<% end %>

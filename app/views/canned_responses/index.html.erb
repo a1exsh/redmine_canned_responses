@@ -4,14 +4,5 @@
 <div class="contextual"><%= link_to_new_canned_response %></div>
 <h2><%=h title %></h2>
 
-<% if @canned_responses.empty? %>
-  <p class="nodata"><%= l(:label_no_data) %></p>
-<% else %>
-<% @canned_responses.each do |cr| %>
-  <div class="canned-response">
-    <h3><%= link_to cr.title, cr %></h3>
-    <%= textilizable cr, :text %>
-  </div>
-  <p><%= manage_canned_response_links cr %></p>
-<% end %>
-<% end %>
+<%= render :partial => 'list',
+    :locals => { :canned_responses => @canned_responses } %>
