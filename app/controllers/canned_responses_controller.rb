@@ -2,7 +2,8 @@ class CannedResponsesController < ApplicationController
   unloadable
 
   before_filter :find_project
-  before_filter :authorize, :except => :insert
+
+  before_filter [:require_admin_if_global, :authorize], :except => :insert
   before_filter :authorize_unless_global, :only => :insert
 
   layout :select_layout
@@ -82,6 +83,10 @@ class CannedResponsesController < ApplicationController
     @canned_responses = CannedResponse.global unless @project
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def require_admin_if_global
+    require_admin unless @project
   end
 
   def authorize_unless_global
