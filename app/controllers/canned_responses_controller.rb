@@ -6,7 +6,6 @@ class CannedResponsesController < ApplicationController
   layout :select_layout
 
   def index
-    @canned_responses = @canned_responses.all(:order => :title)
   end
 
   def show
