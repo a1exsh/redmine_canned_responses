@@ -9,6 +9,8 @@ en:
   label_new_canned_response: New canned response
   label_new_global_canned_response: New global canned response
   label_edit_canned_response: Edit canned response
+  field_canned_response_title: Title
+  field_canned_response_text: Response text
   notice_canned_response_created: Canned successfully
   notice_canned_response_updated: Re-canned successfully
   notice_canned_response_deleted: Can trashed successfully

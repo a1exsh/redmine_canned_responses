@@ -5,8 +5,11 @@
 <%= error_messages_for 'canned_response' %>
 <div class="box">
   <%= hidden_field_tag :project_id, @canned_response.project_id %>
-  <p><%= f.text_field :title, :size => 60 %></p>
-  <p><%= f.text_area :text, :cols => 60, :rows => 15,
+  <p><%= f.text_field :title, :required => true,
+         :label => :field_canned_response_title, :size => 60 %></p>
+  <p><%= f.text_area :text, :required => true,
+         :label => :field_canned_response_text,
+         :cols => 60, :rows => 15,
          :class => 'wiki-edit', :accesskey => accesskey(:edit) %></p>
 </div>
 <p><%= submit_tag l(:button_save) %>
