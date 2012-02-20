@@ -1,4 +1,4 @@
-<% if controller_name == 'admin' %>
+<% if %w(admin canned_responses).include? controller_name %>
   <%= stylesheet_link_tag 'canned_responses',
       :plugin => 'redmine_canned_responses' %>
 <% end %>
