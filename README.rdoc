@@ -1,3 +1,11 @@
 = canned_responses
 
 Store and use prepared (canned) responses, per-project or globally.
+
+= Installation
+
+Download or git clone to vendor/plugins, run `rake db:migrate:plugins`
+to create database tables.
+
+Enable the 'Canned Responses' module for projects you need this
+feature in.
