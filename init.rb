@@ -23,7 +23,15 @@ end
 
 require_dependency 'redmine_canned_responses/view_hooks'
 
-Project.send(:include, RedmineCannedResponses::ProjectPatch)
-ProjectsHelper.send(:include, RedmineCannedResponses::ProjectsHelperPatch)
-ProjectsController.send(:include, RedmineCannedResponses::ProjectsControllerPatch)
-IssuesController.send(:include, RedmineCannedResponses::IssuesControllerPatch)
+prepare_block = Proc.new do
+  Project.send(:include, RedmineCannedResponses::ProjectPatch)
+  ProjectsHelper.send(:include, RedmineCannedResponses::ProjectsHelperPatch)
+  ProjectsController.send(:include, RedmineCannedResponses::ProjectsControllerPatch)
+  IssuesController.send(:include, RedmineCannedResponses::IssuesControllerPatch)
+end
+
+if Rails.env.development?
+  ActionDispatch::Reloader.to_prepare { prepare_block.call }
+else
+  prepare_block.call
+end
