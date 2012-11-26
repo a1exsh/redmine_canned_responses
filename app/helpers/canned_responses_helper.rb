@@ -1,22 +1,23 @@
 module CannedResponsesHelper
   def edit_canned_response_link(canned_response, title = l(:button_edit))
-    link_to_if_authorized title,
-      { :controller => "canned_responses", :action => "edit",
-        :id => canned_response },
-      :class => "icon icon-edit"
+    link_to_if_authorized(title,
+                          { :controller => "canned_responses", :action => "edit",
+                            :id => canned_response },
+                          :class => "icon icon-edit").html_safe
   end
 
   def delete_canned_response_link(canned_response, title = l(:button_delete))
-    link_to_if_authorized title,
-      { :controller => "canned_responses", :action => "destroy",
-        :id => canned_response },
-      :class => "icon icon-del",
-      :method => :delete, :confirm => l(:text_are_you_sure)
+    link_to_if_authorized(title,
+                          { :controller => "canned_responses", :action => "destroy",
+                            :id => canned_response },
+                          :class => "icon icon-del",
+                          :method => :delete,
+                          :confirm => l(:text_are_you_sure)).html_safe
   end
 
   def manage_canned_response_links(canned_response)
     [edit_canned_response_link(canned_response),
-     delete_canned_response_link(canned_response)].join("\n")
+     delete_canned_response_link(canned_response)].join("\n").html_safe
   end
 
   def url_to_canned_responses_settings_tab
@@ -27,24 +28,23 @@ module CannedResponsesHelper
   def link_to_all_canned_responses(title = l(:label_canned_response_view_all),
                                    project = @project)
     url = project ? url_to_canned_responses_settings_tab :
-      { :controller => "canned_responses", :action => "index",
-        :project_id => project }
+      { :controller => "canned_responses", :action => "index" }
 
-    link_to title, url, :class => "icon icon-multiple"
+    link_to(title, url, :class => "icon icon-multiple").html_safe
   end
 
   def link_to_new_canned_response(title = l(:label_new_canned_response),
                                   project = @project)
-    link_to_if_authorized title,
-      { :controller => "canned_responses", :action => "new",
-        :project_id => project },
-      :class => "icon icon-add"
+    link_to_if_authorized(title,
+                          { :controller => "canned_responses", :action => "new",
+                            :project_id => project },
+                          :class => "icon icon-add").html_safe
   end
 
   def canned_response_options_for_select(project = @project)
     [project ? canned_responses_options(project.canned_responses) : "",
      canned_responses_options(CannedResponse.global)].reject(&:blank?)\
-      .join("<option disabled>---</option>")
+      .join("<option disabled>---</option>").html_safe
   end
 
   def canned_responses_options(canned_responses)

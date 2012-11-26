@@ -1,4 +1,4 @@
-<% labelled_tabular_form_for :canned_response, @canned_response,
+<%= labelled_tabular_form_for @canned_response,
    :url => { :action => @canned_response.new_record? ? 'create' : 'update' },
    :html => { :id => 'wiki_form',
      :method => @canned_response.new_record? ? 'post' : 'put' } do |f| %>
@@ -15,7 +15,7 @@
 <p><%= submit_tag l(:button_save) %>
   <%= link_to_remote l(:label_preview), 
       { :url => { :action => 'preview' },
-        :method => :post,
+        :method => :get,
         :update => 'preview',
         :with => "Form.serialize('wiki_form')",
         :complete => "Element.scrollTo('preview')"

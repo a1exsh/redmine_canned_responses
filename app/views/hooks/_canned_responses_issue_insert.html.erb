@@ -12,9 +12,10 @@
     <%= label_tag :canned_response, l(:label_insert_canned_response) %>
     <% js = remote_function(:url => { :controller => 'canned_responses',
                               :action => 'insert' },
+                            :method => :get,
                             :condition => "$('canned_response').value != ''",
                             :with => "'id=' + $('canned_response').value" ) %>
-    <%= select_tag :canned_response, "<option></option>" + options,
+    <%= select_tag :canned_response, ("<option></option>" + options).html_safe,
         :onchange => js %>
     </p>
     <hr/>

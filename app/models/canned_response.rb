@@ -3,7 +3,8 @@ class CannedResponse < ActiveRecord::Base
 
   validates_presence_of :title, :text
 
-  named_scope :global, :conditions => { :project_id => nil }, :order => :title
+  scope :global, where(:project_id => nil)
+  default_scope order(:title)
 
   def global?
     project.nil?

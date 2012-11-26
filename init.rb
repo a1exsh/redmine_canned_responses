@@ -1,36 +1,10 @@
 require 'redmine'
-require 'dispatcher'
-
-require_dependency 'redmine_canned_responses/view_hooks'
-
-Dispatcher.to_prepare :redmine_canned_responses do
-  require_dependency 'project'
-  require_dependency 'projects_helper'
-  require_dependency 'projects_controller'
-  require_dependency 'issues_controller'
-
-  unless Project.included_modules.include? RedmineCannedResponses::ProjectPatch
-    Project.send(:include, RedmineCannedResponses::ProjectPatch)
-  end
-
-  unless ProjectsHelper.included_modules.include? RedmineCannedResponses::ProjectsHelperPatch
-    ProjectsHelper.send(:include, RedmineCannedResponses::ProjectsHelperPatch)
-  end
-
-  unless ProjectsController.included_modules.include? RedmineCannedResponses::ProjectsControllerPatch
-    ProjectsController.send(:include, RedmineCannedResponses::ProjectsControllerPatch)
-  end
-
-  unless IssuesController.included_modules.include? RedmineCannedResponses::IssuesControllerPatch
-    IssuesController.send(:include, RedmineCannedResponses::IssuesControllerPatch)
-  end
-end
 
 Redmine::Plugin.register :redmine_canned_responses do
   name 'Redmine Canned Responses plugin'
   author 'Alex Shulgin <ash@commandprompt.com>'
   description 'Store and use prepared (canned) responses, per-project or globally.'
-  version '0.0.1'
+  version '0.2.0'
   url 'http://github.com/commandprompt/redmine_canned_responses'
 #  author_url 'http://example.com/about'
 
@@ -46,3 +20,10 @@ Redmine::Plugin.register :redmine_canned_responses do
     :caption => :label_canned_response_plural,
     :html => { :class => 'canned_responses' }
 end
+
+require_dependency 'redmine_canned_responses/view_hooks'
+
+Project.send(:include, RedmineCannedResponses::ProjectPatch)
+ProjectsHelper.send(:include, RedmineCannedResponses::ProjectsHelperPatch)
+ProjectsController.send(:include, RedmineCannedResponses::ProjectsControllerPatch)
+IssuesController.send(:include, RedmineCannedResponses::IssuesControllerPatch)
