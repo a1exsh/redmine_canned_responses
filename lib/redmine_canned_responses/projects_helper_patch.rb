@@ -1,5 +1,7 @@
 module RedmineCannedResponses
   module ProjectsHelperPatch
+    unloadable
+
     def self.included(base)
       base.class_eval do
         alias_method_chain :project_settings_tabs, :canned_responses
