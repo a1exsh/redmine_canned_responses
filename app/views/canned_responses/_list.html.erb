@@ -4,10 +4,11 @@
   <div class="<%= (box ||= false) ? 'box' : ''%>">
     <% canned_responses.each do |cr| %>
       <div class="canned-response">
+        <div class="contextual"><%= manage_canned_response_links cr %></div>
         <h3><%= link_to cr.title, cr %></h3>
         <%= textilizable cr, :text %>
+        <hr/>
       </div>
-      <p><%= manage_canned_response_links cr %></p>
     <% end %>
   </div>
 <% end %>
