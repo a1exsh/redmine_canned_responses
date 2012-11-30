@@ -53,10 +53,7 @@ class CannedResponsesController < ApplicationController
   end
 
   def insert
-    render(:update) do |page|
-      page << "$('notes').value += \"#{escape_javascript @canned_response.text}\";"
-      page << "Form.Element.focus('notes');"
-    end
+    render :text => @canned_response.text
   end
 
   private
