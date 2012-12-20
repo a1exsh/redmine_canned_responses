@@ -1,28 +1,25 @@
-<% if User.current.allowed_to? :manage_canned_responses, @project %>
-<div class="contextual">
-  <%= link_to l(:label_manage_canned_responses),
-      url_to_canned_responses_settings_tab %>
-</div>
-<% end %>
-
+<p>
 <% options = canned_response_options_for_select %>
-<% unless options.blank? %>
-  <% if User.current.allowed_to? :use_canned_responses, @project %>
-    <p>
+  <% if options.present? and User.current.allowed_to?(:use_canned_responses, @project) %>
     <%= label_tag :canned_response, l(:label_insert_canned_response) %>
-    <% url = url_for(:controller => 'canned_responses', :action => 'insert') %>
+    <% url = url_for(:controller => 'canned_responses', :action => 'insert',
+                     :project_id => nil, :id => ':id') %>
     <% js = <<EOF
 if ($('#canned_response').attr('value'))
-  $.ajax({ url: '#{url}?id=' + $('#canned_response').attr('value'), type: 'get',
+  $.ajax({ url: '#{url}'.replace(':id', $('#canned_response').attr('value')), type: 'get',
            success: function(data) {
-             $('#notes').html(data);
+             $('##{issue.new_record? ? 'issue_description' : 'notes'}').html(data);
            }
          });
 EOF
 %>
     <%= select_tag :canned_response, ("<option></option>" + options).html_safe,
         :onchange => js %>
-    </p>
-    <hr/>
-  <% end %>
 <% end %>
+
+<% if User.current.allowed_to? :manage_canned_responses, @project %>
+  <br/>
+  <%= link_to l(:label_manage_canned_responses),
+      url_to_canned_responses_settings_tab %>
+<% end %>
+</p>
