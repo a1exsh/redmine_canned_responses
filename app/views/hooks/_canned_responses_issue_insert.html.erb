@@ -8,7 +8,7 @@
 if ($('#canned_response').attr('value'))
   $.ajax({ url: '#{url}'.replace(':id', $('#canned_response').attr('value')), type: 'get',
            success: function(data) {
-             $('##{issue.new_record? ? 'issue_description' : 'notes'}').html(data);
+             $('#issue_#{issue.new_record? ? 'description' : 'notes'}').html(data);
            }
          });
 EOF
