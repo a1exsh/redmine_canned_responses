@@ -3,7 +3,7 @@ module CannedResponsesHelper
     link_to_if_authorized(title,
                           { :controller => "canned_responses", :action => "edit",
                             :id => canned_response },
-                          :class => "icon icon-edit").html_safe
+                          :class => "icon icon-edit").to_s.html_safe
   end
 
   def delete_canned_response_link(canned_response, title = l(:button_delete))
@@ -12,7 +12,7 @@ module CannedResponsesHelper
                             :id => canned_response },
                           :class => "icon icon-del",
                           :method => :delete,
-                          :confirm => l(:text_are_you_sure)).html_safe
+                          :confirm => l(:text_are_you_sure)).to_s.html_safe
   end
 
   def manage_canned_response_links(canned_response)
@@ -38,7 +38,7 @@ module CannedResponsesHelper
     link_to_if_authorized(title,
                           { :controller => "canned_responses", :action => "new",
                             :project_id => project },
-                          :class => "icon icon-add").html_safe
+                          :class => "icon icon-add").to_s.html_safe
   end
 
   def canned_response_options_for_select(project = @project)
