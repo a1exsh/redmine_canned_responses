@@ -1,7 +1,8 @@
 class CannedResponse < ActiveRecord::Base
   belongs_to :project
 
-  validates_presence_of :title, :text
+  validate :title, :text
+  attr_accessible :title, :text
 
   scope :global, lambda { where(:project_id => nil) }
   default_scope { order(:title) }
